@@ -1,5 +1,5 @@
 \documentclass{book}
-\usepackage[left=0.75in,right=0.75in,top=1in,bottom=1in,bindingoffset=2in,marginparwidth=75pt]{geometry}
+\usepackage[left=0.75in,right=0.75in,top=1in,bottom=1in,bindingoffset=2in,marginparwidth=2in]{geometry}
 \usepackage{lipsum}
 \usepackage{graphicx}
 \usepackage{marginnote}
@@ -10,6 +10,45 @@
 \setlength\parindent{0pt}
 \newif\ifpaper
 \papertrue
+\usepackage[most]{tcolorbox}
+\usepackage{blindtext}
+
+\tcbset{exampleboxfilled/.style={  enhanced jigsaw,
+  sharp corners,
+  colback=white!80!gray,
+  colbacktitle=white!80!gray,
+  fonttitle={\bfseries},
+  coltitle=black,
+  toprule=2pt,
+  bottomrule=2pt,
+  leftrule=0pt,
+  rightrule=0pt,
+  titlerule=0pt,
+  left=0pt,
+  right=0pt}
+}
+
+
+\tcbset{exampleboxoutline/.style={%  
+    exampleboxfilled, % Use the filled style first
+    colback=white,
+    colbacktitle=white,
+  }
+}
+
+\def\myboxstyle{exampleboxoutline}% To be set by a class option
+
+
+\newtcolorbox[auto counter,number within=section]{examplebox}[2][]{%
+  \myboxstyle,
+  title={Example \thetcbcounter~#2},
+  #1
+}
+\newtcolorbox[auto counter,number within=section]{exercisebox}[2][]{%
+  \myboxstyle,
+  title={Exercise \thetcbcounter~#2},
+  #1
+}
 \begin{document}
 \begin{titlepage}
 \begin{center}
@@ -239,7 +278,7 @@ SUVAT can be visualized as an area of a trapezium in the $v\text{-}t$ graph. [De
 
 \subsection{Exercises}
 \begin{samepage}
-\subsubsection{SJPO 2018 General Round Q13}
+\begin{exercisebox}{SJPO 2018 General Round Q13}
 Travelling with an initial speed of $70 \mathrm{~km} / \mathrm{h}$, a car accelerates at $6000 \mathrm{~km} / \mathrm{h}^2$ along a straight road. How long will it take to reach a speed of $120 \mathrm{~km} / \mathrm{h}$ ?
 \begin{itemize}
 \item[] (A) $30 \mathrm{~s}$
@@ -249,7 +288,7 @@ Travelling with an initial speed of $70 \mathrm{~km} / \mathrm{h}$, a car accele
 \item[] (E) $180 \mathrm{~s}$
 \end{itemize}
 Ans: \ifpaper A \fi
-
+\end{exercisebox}
 \subsubsection{SJPO 2015 General Round Q13}
 Lecture: \url{https://youtu.be/j9qWyWCTjrM} \\[10pt]
 An object is travelling on a straight path and exhibiting a constant acceleration $a$ starts off with an initial velocity $v=2.0 \mathrm{~ms}^{-1}$. It has traversed $4.5 \mathrm{~m}$ in the third second (from $t=2$ to $t=3$), its acceleration $a$ is
@@ -981,6 +1020,8 @@ The quantity on the right hand side is called \textbf{impulse}.
 \subsection{Kinetic Energy \& Work}
 \url{https://youtu.be/DYRDr_ADIAM}
 Often in physics, it is unnecessary to know the exact path $x(t)$ of a particle. Sometimes, the question only requires us to know $v(t)$. \\[10pt]
+
+\begin{examplebox}[exampleboxfilled]{Inverse Square Force}
 Example: A particle of mass $m$ experiences a force $F(x(t)) = \frac{A}{x(t)^2}$. It starts at $x(0)=x_0,\ x_0 > 0$ with an initial speed of $v_0$ toward $x=0$. Where will the particle come to a rest? \\[10pt]
 One way of solving this is to find the function $x(t)$ that satisfies $F=ma$
 $$\frac{A}{x^2} = m \frac{d^2x}{dt^2}$$
@@ -1003,7 +1044,11 @@ Then integrating from the starting to the stopping point wrt $x$ instead of $t$,
 \frac{A}{x_0}+\frac{1}{2} m v_0^2&=\frac{A}{x_\text {stop }} \label{eq:pepke}\\
 x_{\text{stop}} &= A \left(\frac{A}{x_0}+\frac{1}{2} m v_0^2\right)^{-1}
 \end{align}
-The left hand side of Equation \ref{eq:pepke} is actually potential energy + kinetic energy. We will talk about potential energy in future, but for now we observe that integrating $F$ with respect to $x$ instead of $t$ was a useful trick. Generalizing this to a general force $F$,
+The left hand side of Equation \ref{eq:pepke} is actually potential energy + kinetic energy. We will talk about potential energy in future, but for now we observe that integrating $F$ with respect to $x$ instead of $t$ was a useful trick. 
+\end{examplebox}
+
+Generalizing this to a general force $F$,
+
 
 \begin{align}
     F &= ma \\
@@ -1049,15 +1094,18 @@ Frictional force between two rough bodies \textbf{in contact} is a vector:
 \end{itemize}
 $\mu_s$ is the static coefficient of friction. \\[10pt]
 When sliding starts, the magnitude will be limited by the kinetic coefficient of friction $\mu_k$ instead of $\mu_s$. Usually $\mu_k < \mu_s$, which is why you will lose control of your car if your tyres skid.
-
-\subsubsection{SJPO 2015 General Round Q12}
+\begin{examplebox}
+{SJPO 2015 General Round Q12}
 \label{sec:sjpo2015q12sec_static}
+\marginnote{ 
+\begin{flushleft}
+Extra: If the static coefficient of friction is $\mu$, at what angle $\theta_{\text{max}}$ does the block begin slipping?
+\end{flushleft}
+}
 As shown in the figure below, the block with mass $M$ is stationary upon the plank and the angle of the slope $\theta$ is increased. Which of the following is true for the normal force of the block on the wooden plank, $N$ and the frictional force on the plank, $f$? \\
 \begin{wrapfigure}{r}{0.36\textwidth}
 \includegraphics[width=1.0\linewidth]{images/sjpo2015q12.png}
 \end{wrapfigure}
-
-
 \begin{itemize}
 \item[] (A) Both $N$ and $f$ increase.
 \item[] (B) Both $N$ and $f$ decrease.
@@ -1065,12 +1113,9 @@ As shown in the figure below, the block with mass $M$ is stationary upon the pla
 \item[] (D) $N$ decreases and $f$ increases.
 \item[] (E) The response differs when the value of $M$ is different.
 \end{itemize}
-Ans: \ifpaper D \fi \\[10pt]
-Extra: If the static coefficient of friction is $\mu$, at what angle $\theta_{\text{max}}$ does the block begin slipping?
-
-
-
-\subsubsection{SJPO 2016 General Round Q4}
+Ans: \ifpaper D \fi
+\end{examplebox}
+\begin{examplebox}{SJPO 2016 General Round Q4}
 A box is pulled using a string up a 0.1 radian slope at constant speed of $2.0 \mathrm{~ms}^{-1}$. The string is cut suddenly and the box comes to a stop after moving up a further distance of $1.0 \mathrm{~m}$. What is the value of the coefficient of friction?
 {
 \begin{wrapfigure}{r}{0.6\textwidth}
@@ -1085,6 +1130,8 @@ A box is pulled using a string up a 0.1 radian slope at constant speed of $2.0 \
 \end{itemize}
 }
 Ans: \ifpaper B \fi
+\end{examplebox}
+
 \subsection{Tension}
 Tension in the string connecting two bodies is a vector:
 \begin{itemize}
